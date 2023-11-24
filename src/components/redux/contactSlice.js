@@ -5,9 +5,18 @@ const getActions = (type) => isAnyOf(fetchContacts[type], addContacts[type], del
 
 const initialState = { items: [], isLoading: false, error: null };
 
-const contactSlice = createSlice({
+export const contactSlice = createSlice({
   name: 'contacts',
   initialState,
+  reducers: {
+    addContact(state, action) {
+      state.items.unshift(action.payload);
+    },
+    deleteContact(state, action) {
+      const index = state.items.findIndex((contact) => contact.id === action.payload.id);
+      state.items.splice(index, 1);
+    },
+  },
   extraReducers: (builder) =>
     builder
       .addCase(fetchContacts.fulfilled, (state, action) => {
@@ -33,5 +42,5 @@ const contactSlice = createSlice({
       }),
 });
 
-export const {addContact, deleteContact} = contactSlice.actions;
-export const contactReducer = contactSlice.reducer;
+export const { addContact, deleteContact } = contactSlice.actions;
+export const contactsReducer = contactSlice.reducer;

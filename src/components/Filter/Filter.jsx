@@ -1,17 +1,19 @@
 import React from "react";
-import PropTypes from 'prop-types'
-import css from './Filter.module.css'
+import PropTypes from 'prop-types';
+import css from './Filter.module.css';
 import { useDispatch, useSelector } from "react-redux";
-import { refreshFilter } from "components/redux/contactSlice";
+import { changeFilter } from "components/redux/filterSlice";
 
 function Filter() {
-    const dispatch = useDispatch()
-    const filter = useSelector((state) => state.contacts.filter)
-    const handleChange = (event) => {
-        dispatch(refreshFilter(event.currentTarget.value))
-    }
-    return(
-<div className={css.container}>
+  const dispatch = useDispatch();
+  const filter = useSelector((state) => state.filter);
+
+  const handleChange = (event) => {
+    dispatch(changeFilter(event.currentTarget.value));
+  };
+
+  return (
+    <div className={css.container}>
       <h3 className={css.header}> Search Name</h3>
       <label className={css.label}>
         <input
@@ -22,13 +24,12 @@ function Filter() {
         />
       </label>
     </div>
-    )
+  );
 }
-
 
 Filter.propTypes = {
-    value: PropTypes.string,
-    onChange: PropTypes.func.isRequired,
-}
+  value: PropTypes.string,
+  onChange: PropTypes.func.isRequired,
+};
 
-export default Filter
+export default Filter;

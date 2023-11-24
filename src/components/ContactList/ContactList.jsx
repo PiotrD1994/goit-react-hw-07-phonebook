@@ -1,14 +1,15 @@
 import React from "react";
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 import { useDispatch } from "react-redux";
-import { removeContact } from "components/redux/contactSlice";
-import css from './ContactList.module.css'
+import { deleteContact } from "components/redux/contactSlice";
+import css from './ContactList.module.css';
 
-function ContactList({contacts}) {
-  const dispatch = useDispatch()
+function ContactList({ contacts }) {
+  const dispatch = useDispatch();
+
   const handleRemoveContact = (contactId) => {
-    dispatch(removeContact(contactId))
-  }
+    dispatch(deleteContact(contactId));
+  };
 
   return (
     <div className={css.container}>
@@ -21,13 +22,11 @@ function ContactList({contacts}) {
         ))}
       </ul>
     </div>
-  )
+  );
 }
-
 
 ContactList.propTypes = {
   contacts: PropTypes.arrayOf(PropTypes.object),
 };
-
 
 export default ContactList;
