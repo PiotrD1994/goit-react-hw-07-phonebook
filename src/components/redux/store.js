@@ -18,4 +18,5 @@ const customizedMiddleware = (getDefaultMiddleware) =>
 export const store = configureStore({
   reducer: rootReducer,
   middleware: customizedMiddleware,
+  devTools: process.env.NODE_ENV !== 'production'
 });

@@ -1,15 +1,16 @@
 import React from "react";
-import PropTypes from 'prop-types';
 import css from './Filter.module.css';
 import { useDispatch, useSelector } from "react-redux";
 import { changeFilter } from "components/redux/filterSlice";
+import { selectFilterValue } from "components/redux/selectors"; 
 
 function Filter() {
   const dispatch = useDispatch();
-  const filter = useSelector((state) => state.filter);
+  const value = useSelector(selectFilterValue)
 
   const handleChange = (event) => {
-    dispatch(changeFilter(event.currentTarget.value));
+   const normalizedValue = event.target.value.toLowerCase()
+   dispatch(changeFilter(normalizedValue))
   };
 
   return (
@@ -19,7 +20,7 @@ function Filter() {
         <input
           className={css.input}
           type="text"
-          value={filter}
+          value={value}
           onChange={handleChange}
         />
       </label>
@@ -27,9 +28,5 @@ function Filter() {
   );
 }
 
-Filter.propTypes = {
-  value: PropTypes.string,
-  onChange: PropTypes.func.isRequired,
-};
 
 export default Filter;
